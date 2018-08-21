@@ -1,0 +1,7 @@
+{% for host in groups['all'] %}
+{{ hostvars[host].ansible_hostname }}
+  {% for mpt in hostvars[host].ansible_mounts %}
+  {{ mpt.mount }}
+  {% endfor %}
+{% endfor %}
+
