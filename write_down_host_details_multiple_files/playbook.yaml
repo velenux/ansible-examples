@@ -1,0 +1,16 @@
+---
+- name: write down host details to separate files
+  remote_user: root
+  hosts: all
+  pre_tasks:
+  - name: Gather Facts
+    debug:
+      msg: "Gathering facts for {{ ansible_hostname }}"
+  tasks:
+  - name: Write down facts in separate files
+    template:
+      src: facts_tpl.j2
+      dest: "{{ item }}.log"
+      mode: 0644
+    delegate_to: localhost
+    loop: "{{ groups['all'] }}"
